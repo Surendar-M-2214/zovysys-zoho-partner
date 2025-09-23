@@ -91,10 +91,64 @@ export default {
             height: "0",
           },
         },
+        "bounce-3d": {
+          "0%, 20%, 50%, 80%, 100%": {
+            transform: "translateY(0) rotateX(0deg)",
+          },
+          "40%": {
+            transform: "translateY(-20px) rotateX(10deg)",
+          },
+          "60%": {
+            transform: "translateY(-10px) rotateX(-5deg)",
+          },
+        },
+        "float": {
+          "0%, 100%": {
+            transform: "translateY(0px) translateX(0px)",
+          },
+          "25%": {
+            transform: "translateY(-10px) translateX(5px)",
+          },
+          "50%": {
+            transform: "translateY(-20px) translateX(0px)",
+          },
+          "75%": {
+            transform: "translateY(-10px) translateX(-5px)",
+          },
+        },
+        "rotate-3d": {
+          "0%": {
+            transform: "rotateY(0deg) rotateX(0deg)",
+          },
+          "25%": {
+            transform: "rotateY(90deg) rotateX(5deg)",
+          },
+          "50%": {
+            transform: "rotateY(180deg) rotateX(0deg)",
+          },
+          "75%": {
+            transform: "rotateY(270deg) rotateX(-5deg)",
+          },
+          "100%": {
+            transform: "rotateY(360deg) rotateX(0deg)",
+          },
+        },
+        "pulse-glow": {
+          "0%, 100%": {
+            boxShadow: "0 0 20px hsl(var(--primary) / 0.3)",
+          },
+          "50%": {
+            boxShadow: "0 0 40px hsl(var(--primary) / 0.6)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "bounce-3d": "bounce-3d 2s ease-in-out infinite",
+        "float": "float 6s ease-in-out infinite",
+        "rotate-3d": "rotate-3d 10s linear infinite",
+        "pulse-glow": "pulse-glow 2s ease-in-out infinite alternate",
       },
     },
   },
