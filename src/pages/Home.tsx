@@ -1,22 +1,74 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
 import { 
   ArrowRight, 
   Users, 
-  Target, 
   Zap, 
   CheckCircle, 
   BarChart, 
   Settings,
   Shield,
-  Headphones,
-  Clock
+  Award,
+  TrendingUp
 } from 'lucide-react';
-import heroImage from '@/assets/hero-image.jpg';
 import servicesGrid from '@/assets/services-grid.jpg';
 import CTASection from '@/components/CTASection';
+
+// Helper function to get suffix from stat value
+const getSuffix = (value: string): string => {
+  if (value.includes('%')) return '%';
+  if (value.includes('+')) return '+';
+  if (value.includes('/')) return '/7';
+  return '';
+};
+
+// Counter Animation Component
+const CounterAnimation = ({ target, suffix = '' }: { target: number; suffix?: string }) => {
+  const [count, setCount] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !isVisible) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, [isVisible]);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
+    const duration = 2000; // 2 seconds
+    const increment = target / (duration / 16); // 60fps
+    let current = 0;
+
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        setCount(target);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(current));
+      }
+    }, 16);
+
+    return () => clearInterval(timer);
+  }, [isVisible, target]);
+
+  return <span ref={ref}>{count}{suffix}</span>;
+};
 
 const Home = () => {
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -85,6 +137,12 @@ const Home = () => {
     }
   ];
 
+  const heroStats = [
+    { icon: Users, label: 'Happy Clients', value: '50+' },
+    { icon: Award, label: 'Years Experience', value: '5+' },
+    { icon: TrendingUp, label: 'Success Rate', value: '98%' }
+  ];
+
   const stats = [
     { number: "100+", label: "Businesses Transformed" },
     { number: "5+", label: "Years of Expertise" },
@@ -92,79 +150,107 @@ const Home = () => {
     { number: "24/7", label: "Support Available" }
   ];
 
+  const scrollToContact = () => {
+    const element = document.getElementById('contact');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center gradient-hero overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
-        
-        {/* Floating Elements */}
-        <div className="absolute top-20 left-10 animate-float">
-          <div className="w-16 h-16 bg-white/20 rounded-full animate-pulse-glow"></div>
-        </div>
-        <div className="absolute top-32 right-20 animate-bounce-3d">
-          <div className="w-12 h-12 bg-accent/30 rounded-full"></div>
-        </div>
-        <div className="absolute bottom-20 left-1/4 animate-rotate-3d">
-          <div className="w-8 h-8 bg-secondary/30 rounded-full"></div>
-        </div>
-        <div className="absolute top-1/2 right-10 animate-float" style={{ animationDelay: '2s' }}>
-          <div className="w-10 h-10 bg-primary/20 rounded-full"></div>
+      <section id="home" className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-green-50 py-20 min-h-screen flex items-center">
+        {/* Animated Background Elements - Hidden on mobile */}
+        <div className="absolute inset-0 overflow-hidden hidden md:block">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+          <div className="absolute top-40 right-10 w-72 h-72 bg-green-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+          <div className="absolute -bottom-8 left-20 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
         </div>
 
-        <div className="container mx-auto px-4 lg:px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="scroll-reveal">
-              <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Content */}
+            <div className="animate-slide-in-left">
+              <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-6">
+                <CheckCircle className="w-4 h-4 mr-2" />
+                Certified Zoho Implementation Partner
+              </div>
+              
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
                 Your Trusted Partner for 
-                <span className="text-accent"> Zoho Implementation</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-green-500">
+                  {' '}Zoho Implementation
+                </span>
               </h1>
-              <p className="text-xl text-blue-100 mb-8 leading-relaxed">
-                Transform your business operations with our expert Zoho implementation services. 
-                We help companies automate, streamline, and scale with comprehensive Zoho solutions.
+              
+              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+                Transform your business operations with our expert Zoho solutions. We help small, mid, and enterprise-level businesses automate, streamline, and scale their operations using the complete Zoho ecosystem.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <Button 
-                  asChild 
-                  size="lg"
-                  className="bg-white text-primary hover:bg-gray-100 font-semibold px-8 py-3 shadow-large group hover:scale-105 transition-all duration-300"
+              <div className="flex flex-col sm:flex-row gap-4 mb-10">
+                <button 
+                  onClick={scrollToContact}
+                  className="bg-gradient-to-r from-blue-600 to-green-500 text-white px-8 py-4 rounded-full font-semibold text-lg hover:from-blue-700 hover:to-green-600 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1 inline-flex items-center justify-center"
                 >
-                  <Link to="/contact" className="flex items-center space-x-2">
-                    <span>Get Free Consultation</span>
-                    <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-                  </Link>
-                </Button>
+                  Get Free Consultation
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </button>
                 
                 <Button 
                   asChild 
                   variant="outline"
                   size="lg"
-                  className="border-white text-white hover:bg-white hover:text-primary font-semibold px-8 py-3 hover:scale-105 transition-all duration-300"
+                  className="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-full font-semibold text-lg hover:border-blue-600 hover:text-blue-600 transition-all duration-200"
                 >
-                  <Link to="/services">View Our Services</Link>
+                  <Link to="/services" className="flex items-center justify-center">
+                    View Our Services
+                  </Link>
                 </Button>
               </div>
 
-              <div className="flex items-center space-x-6 text-blue-200">
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="h-5 w-5 text-success" />
-                  <span>Free Consultation</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="h-5 w-5 text-success" />
-                  <span>Certified Zoho Partners</span>
-                </div>
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-4">
+                {heroStats.map((stat) => (
+                  <div key={stat.label} className="text-center">
+                    <div className="inline-flex items-center justify-center w-12 h-12 text-blue-600 mb-3 border-2 border-blue-200">
+                      <stat.icon className="w-6 h-6" />
+                    </div>
+                    <div className="text-2xl font-bold text-gray-900">
+                      <CounterAnimation target={parseInt(stat.value.replace('+', '').replace('%', ''))} suffix={getSuffix(stat.value)} />
+                    </div>
+                    <div className="text-sm text-gray-600">{stat.label}</div>
+                  </div>
+                ))}
               </div>
             </div>
 
-            <div className="scroll-reveal tilt-card">
-              <img 
-                src={heroImage} 
-                alt="Professional team implementing Zoho solutions for business automation"
-                className="rounded-2xl shadow-large hover:shadow-glow transition-all duration-300"
-                loading="eager"
-              />
+            {/* Visual */}
+            <div className="relative animate-slide-in-right">
+              <div className="relative z-10">
+                <div className="bg-white rounded-2xl shadow-2xl p-8 transform rotate-3 hover:rotate-0 transition-transform duration-500 hover:scale-105 animate-float">
+                  <div className="space-y-4">
+                    <div className="h-4 bg-blue-200 rounded animate-pulse"></div>
+                    <div className="h-4 bg-green-200 rounded w-3/4 animate-pulse delay-75"></div>
+                    <div className="h-4 bg-blue-200 rounded w-1/2 animate-pulse delay-150"></div>
+                    <div className="grid grid-cols-2 gap-4 mt-6">
+                      <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-4 rounded-lg transform hover:scale-105 transition-transform duration-200">
+                        <div className="text-2xl font-bold">Zoho CRM</div>
+                        <div className="text-sm opacity-90">Customer Management</div>
+                      </div>
+                      <div className="bg-gradient-to-br from-green-500 to-green-600 text-white p-4 rounded-lg transform hover:scale-105 transition-transform duration-200">
+                        <div className="text-2xl font-bold">Zoho One</div>
+                        <div className="text-sm opacity-90">Complete Suite</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Floating elements - Hidden on mobile */}
+              <div className="absolute -top-4 -left-4 w-20 h-20 bg-blue-200 rounded-full opacity-60 animate-float hidden md:block"></div>
+              <div className="absolute -bottom-4 -right-4 w-16 h-16 bg-green-200 rounded-full opacity-60 animate-float animation-delay-2000 hidden md:block"></div>
+              <div className="absolute top-1/2 -right-8 w-12 h-12 bg-yellow-200 rounded-full opacity-60 animate-float animation-delay-4000 hidden md:block"></div>
             </div>
           </div>
         </div>
@@ -173,11 +259,14 @@ const Home = () => {
       {/* Stats Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 lg:px-6">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center scroll-reveal tilt-card" style={{ animationDelay: `${index * 0.2}s` }}>
-                <div className="text-4xl lg:text-5xl font-bold text-primary mb-2 animate-pulse-glow">
-                  {stat.number}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {stats.map((stat) => (
+              <div key={stat.label} className="text-center scroll-reveal tilt-card p-6 border-2 border-gray-200 rounded-lg">
+                <div className="text-4xl lg:text-5xl font-bold text-primary mb-2">
+                  <CounterAnimation 
+                    target={parseInt(stat.number.replace('+', '').replace('%', '').replace('/', ''))} 
+                    suffix={getSuffix(stat.number)} 
+                  />
                 </div>
                 <div className="text-muted-foreground font-medium">
                   {stat.label}
@@ -210,11 +299,10 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
+            {features.map((feature) => (
               <Card 
-                key={index} 
-                className="border-0 shadow-soft hover:shadow-medium transition-all duration-300 scroll-reveal tilt-card group bg-white/80 backdrop-blur-sm" 
-                style={{ animationDelay: `${index * 0.1}s` }}
+                key={feature.title} 
+                className="border-0 shadow-soft hover:shadow-medium transition-all duration-300 scroll-reveal tilt-card group bg-white/80 backdrop-blur-sm"
               >
                 <CardContent className="p-6 text-center">
                   <div className="flex justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
@@ -256,17 +344,16 @@ const Home = () => {
             </div>
 
             <div className="space-y-8">
-              {services.map((service, index) => (
+              {services.map((service) => (
                 <Card 
-                  key={index} 
-                  className="border-0 shadow-soft p-6 scroll-reveal tilt-card group hover:shadow-medium transition-all duration-300" 
-                  style={{ animationDelay: `${index * 0.2}s` }}
+                  key={service.title} 
+                  className="border-0 shadow-soft p-6 scroll-reveal tilt-card group hover:shadow-medium transition-all duration-300"
                 >
                   <h3 className="text-2xl font-semibold mb-3 group-hover:text-primary transition-colors">{service.title}</h3>
                   <p className="text-muted-foreground mb-4">{service.description}</p>
                   <div className="grid grid-cols-2 gap-2">
-                    {service.features.map((feature, featureIndex) => (
-                      <div key={featureIndex} className="flex items-center space-x-2">
+                    {service.features.map((feature) => (
+                      <div key={feature} className="flex items-center space-x-2">
                         <CheckCircle className="h-4 w-4 text-success" />
                         <span className="text-sm font-medium">{feature}</span>
                       </div>
@@ -322,15 +409,14 @@ const Home = () => {
                 quote: "Professional, knowledgeable, and always available for support. The best Zoho implementation partner we could ask for.",
                 rating: 5
               }
-            ].map((testimonial, index) => (
+            ].map((testimonial) => (
               <Card 
-                key={index} 
-                className="border-0 shadow-soft p-6 scroll-reveal tilt-card group hover:shadow-medium transition-all duration-300 bg-white/90 backdrop-blur-sm" 
-                style={{ animationDelay: `${index * 0.2}s` }}
+                key={testimonial.name} 
+                className="border-0 shadow-soft p-6 scroll-reveal tilt-card group hover:shadow-medium transition-all duration-300 bg-white/90 backdrop-blur-sm"
               >
                 <div className="flex mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <div key={i} className="text-yellow-400 animate-bounce-3d" style={{ animationDelay: `${i * 0.1}s` }}>⭐</div>
+                  {Array.from({ length: testimonial.rating }, (_, i) => (
+                    <div key={`${testimonial.name}-star-${i}`} className="text-yellow-400 animate-bounce-3d" style={{ animationDelay: `${i * 0.1}s` }}>⭐</div>
                   ))}
                 </div>
                 <p className="text-muted-foreground mb-4 italic">"{testimonial.quote}"</p>

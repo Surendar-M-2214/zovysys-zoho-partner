@@ -32,7 +32,7 @@ const Header = () => {
   return (
     <header 
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled 
+        isScrolled || isOpen
           ? 'bg-white/95 backdrop-blur-md shadow-soft' 
           : 'bg-transparent'
       }`}
@@ -89,7 +89,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="lg:hidden absolute top-full left-0 right-0 bg-white/98 backdrop-blur-md shadow-medium border-t">
+          <div className="lg:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-lg shadow-medium border-t">
             <div className="px-4 py-6 space-y-4">
               {navigation.map((item) => (
                 <Link
