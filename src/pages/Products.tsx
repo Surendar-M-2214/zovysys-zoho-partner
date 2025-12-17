@@ -171,7 +171,7 @@ const Products = () => {
               50+ Zoho Products & Solutions
             </div>
             <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
-              Complete <span className="gradient-primary bg-clip-text text-transparent">Zoho Ecosystem</span> at Your Fingertips
+              Complete <span className="gradient-primary bg-clip-text px-4 text-white whitespace-nowrap">Zoho Ecosystem</span> at Your Fingertips
             </h1>
             <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
               Discover comprehensive business solutions across all categories. From sales automation to project management, we help you leverage the complete Zoho suite for your digital transformation.

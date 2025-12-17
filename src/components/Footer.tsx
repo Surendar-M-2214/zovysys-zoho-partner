@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Linkedin, Twitter } from 'lucide-react';
-import zovysysSymbol from '@/assets/zovysys-symbol.png';
+import { Link } from "react-router-dom";
+import { Mail, Phone, MapPin, Linkedin, Instagram } from "lucide-react";
+import zovysysSymbol from "@/assets/zovysys-symbol.png";
 
 const Footer = () => {
   return (
@@ -10,31 +10,34 @@ const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-3 mb-6">
-              <img 
-                src={zovysysSymbol} 
-                alt="Zovysys Symbol" 
+              <img
+                src={zovysysSymbol}
+                alt="Zovysys Symbol"
                 className="h-10 w-auto"
               />
               <span className="text-2xl font-bold text-white">Zovysys</span>
             </div>
             <p className="text-gray-300 mb-6 leading-relaxed">
-              Your trusted partner for Zoho implementation with 5+ years of combined expertise. 
-              We help businesses automate, streamline, and scale their operations.
+              Your trusted partner for Zoho implementation with 5+ years of
+              combined expertise. We help businesses automate, streamline, and
+              scale their operations.
             </p>
             <div className="flex space-x-4">
-              <a 
-                href="#" 
+              <a
+                href="https://www.linkedin.com/company/zovysys/"
                 className="text-gray-300 hover:text-accent transition-fast"
                 aria-label="LinkedIn Profile"
+                target="_blank"
               >
                 <Linkedin className="h-5 w-5" />
               </a>
-              <a 
-                href="#" 
+              <a
+                href="https://www.instagram.com/zovysys/"
                 className="text-gray-300 hover:text-accent transition-fast"
-                aria-label="Twitter Profile"
+                aria-label="Instagram Profile"
+                target="_blank"
               >
-                <Twitter className="h-5 w-5" />
+                <Instagram className="h-5 w-5" />
               </a>
             </div>
           </div>
@@ -44,11 +47,9 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-6">Quick Links</h3>
             <ul className="space-y-3">
               {[
-                { name: 'About Us', href: '/about' },
-                { name: 'Services', href: '/services' },
-                { name: 'Industries', href: '/industries' },
-                { name: 'Case Studies', href: '/case-studies' },
-                { name: 'Blog', href: '/blog' },
+                { name: "About Us", href: "/about" },
+                { name: "Services", href: "/services" },
+                { name: "Industries", href: "/industries" },
               ].map((item) => (
                 <li key={item.name}>
                   <Link
@@ -67,11 +68,11 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-6">Our Services</h3>
             <ul className="space-y-3">
               {[
-                'Zoho CRM Implementation',
-                'Zoho One Architecture',
-                'Business Process Automation',
-                'Custom Integrations',
-                'Zoho Training & Support',
+                "Zoho CRM Implementation",
+                "Zoho One Architecture",
+                "Business Process Automation",
+                "Custom Integrations",
+                "Zoho Training & Support",
               ].map((service) => (
                 <li key={service}>
                   <span className="text-gray-300">{service}</span>
@@ -88,8 +89,8 @@ const Footer = () => {
                 <Mail className="h-5 w-5 text-accent mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-gray-300">Email us</p>
-                  <a 
-                    href="mailto:info@zovysys.com" 
+                  <a
+                    href="mailto:info@zovysys.com"
                     className="text-white hover:text-accent transition-fast"
                   >
                     info@zovysys.com
@@ -100,11 +101,11 @@ const Footer = () => {
                 <Phone className="h-5 w-5 text-accent mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-gray-300">Call us</p>
-                  <a 
-                    href="tel:+1234567890" 
+                  <a
+                    href="tel:+919043765284"
                     className="text-white hover:text-accent transition-fast"
                   >
-                    +1 (234) 567-8900
+                    +91 9043765284
                   </a>
                 </div>
               </div>
@@ -113,9 +114,8 @@ const Footer = () => {
                 <div>
                   <p className="text-gray-300">Visit us</p>
                   <p className="text-white">
-                    123 Business District<br />
-                    Suite 100, Tech City<br />
-                    TC 12345
+                    No 24, Brahminar Street, <br /> Mangalam Village and post,
+                    Tiruvannamalai, <br /> Tamilnadu - 606 752, <br /> India.
                   </p>
                 </div>
               </div>
@@ -130,14 +130,14 @@ const Footer = () => {
               © 2024 Zovysys. All rights reserved.
             </p>
             <div className="flex space-x-6 text-sm">
-              <Link 
-                to="/privacy" 
+              <Link
+                to="/privacy"
                 className="text-gray-300 hover:text-accent transition-fast"
               >
                 Privacy Policy
               </Link>
-              <Link 
-                to="/terms" 
+              <Link
+                to="/terms"
                 className="text-gray-300 hover:text-accent transition-fast"
               >
                 Terms of Service
