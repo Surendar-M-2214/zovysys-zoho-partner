@@ -24,9 +24,7 @@ const Header = () => {
     { name: 'Services', href: '/services' },
     { name: 'Products', href: '/products' },
     { name: 'Industries', href: '/industries' },
-    { name: 'Case Studies', href: '/case-studies' },
     { name: 'Contact', href: '/contact' },
-    { name: 'Blog', href: '/blog' },
   ];
 
   return (
@@ -70,7 +68,7 @@ const Header = () => {
           <div className="hidden lg:flex">
             <Button 
               asChild 
-              className="gradient-primary text-white font-semibold px-6 py-2 hover:shadow-medium transition-all duration-300"
+              className="gradient-primary text-white font-semibold px-6 py-2 hover:shadow-medium transition-all duration-300 glow-btn"
             >
               <Link to="/contact">Get Free Consultation</Link>
             </Button>

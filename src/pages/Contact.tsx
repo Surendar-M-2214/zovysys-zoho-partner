@@ -63,14 +63,14 @@ const Contact = () => {
     {
       icon: <Phone className="h-6 w-6 text-secondary" />,
       title: "Call Us", 
-      content: "+1 (234) 567-8900",
+      content: "+91 90437 65284",
       description: "Mon-Fri from 8am to 6pm EST",
-      link: "tel:+1234567890"
+      link: "tel:+919043765284"
     },
     {
       icon: <MapPin className="h-6 w-6 text-accent" />,
       title: "Visit Us",
-      content: "123 Business District, Suite 100",
+      content: "No 24, Brahminar Street, Mangalam Village and post, Tiruvannamalai, Tamilnadu - 606 752, India.",
       description: "Tech City, TC 12345",
       link: "#"
     },
@@ -338,7 +338,7 @@ const Contact = () => {
       </section>
 
       {/* Map/Location Section (Placeholder) */}
-      <section className="py-16 bg-white">
+      {/* <section className="py-16 bg-white">
         <div className="container mx-auto px-4 lg:px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">
@@ -360,7 +360,7 @@ const Contact = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

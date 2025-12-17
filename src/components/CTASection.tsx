@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { ArrowRight, CheckCircle } from "lucide-react";
 
 interface CTASectionProps {
   title?: string;
@@ -9,15 +9,15 @@ interface CTASectionProps {
   className?: string;
 }
 
-const CTASection = ({ 
+const CTASection = ({
   title = "Ready to Transform Your Business?",
   subtitle = "Get a free consultation with our Zoho experts and discover how we can help streamline your operations.",
   benefits = [
     "Free 30-minute consultation",
     "Custom solution roadmap",
-    "No commitment required"
+    "No commitment required",
   ],
-  className = ""
+  className = "",
 }: CTASectionProps) => {
   return (
     <section className={`py-16 lg:py-24 gradient-primary ${className}`}>
@@ -29,12 +29,15 @@ const CTASection = ({
           <p className="text-xl text-blue-100 mb-8 leading-relaxed animate-slide-up">
             {subtitle}
           </p>
-          
+
           {/* Benefits */}
           <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8 mb-8">
             {benefits.map((benefit, index) => (
-              <div key={index} className="flex items-center space-x-2 text-blue-100">
-                <CheckCircle className="h-5 w-5 text-success" />
+              <div
+                key={index}
+                className="flex items-center space-x-2 text-blue-100"
+              >
+                <CheckCircle className="h-5 w-5" />
                 <span className="font-medium">{benefit}</span>
               </div>
             ))}
@@ -42,8 +45,8 @@ const CTASection = ({
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button 
-              asChild 
+            <Button
+              asChild
               size="lg"
               className="bg-white text-primary hover:bg-gray-100 font-semibold px-8 py-3 shadow-large group"
             >
@@ -52,22 +55,22 @@ const CTASection = ({
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
-            
-            <Button 
-              asChild 
-              variant="outline"
+
+            <Button
+              asChild
               size="lg"
-              className="border-white text-white hover:bg-white hover:text-primary font-semibold px-8 py-3"
+              className="bg-white text-primary hover:bg-gray-100 font-semibold px-8 py-3 shadow-large group"
             >
-              <Link to="/services">
-                View Our Services
+              <Link to="/services" className="flex items-center space-x-2">
+                <span> View Our Services</span>
               </Link>
             </Button>
           </div>
 
           {/* Trust Signal */}
           <p className="text-blue-200 text-sm mt-6">
-            ✨ Trusted by 100+ businesses • 5+ years of Zoho expertise • Certified Zoho Partners
+            ✨ Trusted by 100+ businesses • 5+ years of Zoho expertise •
+            Certified Zoho Partners
           </p>
         </div>
       </div>

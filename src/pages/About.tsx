@@ -162,7 +162,7 @@ const About = () => {
       </section>
 
       {/* Our Team */}
-      <section className="py-16 lg:py-24 gradient-subtle">
+      {/* <section className="py-16 lg:py-24 gradient-subtle">
         <div className="container mx-auto px-4 lg:px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-6">
@@ -189,7 +189,7 @@ const About = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Why Choose Us */}
       <section className="py-16 lg:py-24 bg-white">
